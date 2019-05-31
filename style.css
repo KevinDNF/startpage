@@ -1,5 +1,6 @@
 :root {
   --autocompleteContent: "";
+  --outputContent: "";
 }
 
 html, body{
@@ -33,7 +34,8 @@ body{
 #search:focus{
   outline:none;
 }
-#searchbox:before{
+#searchbox:before,
+#searchbox:after{
   z-index:-1;
   color:#F9E389;
   opacity:0.3;
@@ -42,4 +44,9 @@ body{
   font-size:3em;
   font-family:arial;
   font-weight:bold;
+  white-space: pre;
+}
+#searchbox:after{
+  opacity:0.5;
+  content:var(--outputContent);
 }

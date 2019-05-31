@@ -4,6 +4,7 @@
 const input = window.search;
 const inputbox = window.searchbox;
 let autoValue = "";
+let computedOutput = "";
 
 document.addEventListener("load", (e) => {
   input.focus();
@@ -14,20 +15,45 @@ document.addEventListener("click", (e) => {
 })
 
 document.addEventListener("keydown", (e)=>{
-  if (e.key === "Enter"){
-    handleSubmit();
-  }else if (e.key === "Tab"){
-    e.preventDefault();
-    if (autoValue !== ""){
-      handleSubmit();
-    }
+
+  const value = input.value;
+  switch(value.charAt(0)){
+    case "!":
+      if (e.key === "Enter"){
+        addExpression(value);
+      }
+      break;
+
+    default:
+      if (e.key === "Enter"){
+        handleSubmit();
+      }else if (e.key === "Tab"){
+        e.preventDefault();
+        if (autoValue !== ""){
+          handleSubmit();
+        }
+      }
+      input.focus();
+      break;
   }
-  input.focus();
 })
 
 input.addEventListener("keyup", (e) => {
-  autoValue = autocomplete(input.value);
-  document.documentElement.style.setProperty("--autocompleteContent", `'${autoValue.toUpperCase()}'`);
+  const value = input.value;
+
+  switch(value.charAt(0)){
+    case "!":
+       const out = handleExpression(value);
+       document.documentElement.style.setProperty("--outputContent",
+        `'${out} ${computedOutput}'`);
+       return
+      break;
+
+    default:
+      autoValue = autocomplete(value);
+      document.documentElement.style.setProperty("--autocompleteContent", 
+        `'${autoValue.toUpperCase()}'`);
+  }
 })
 
 function handleSubmit(){
@@ -50,4 +76,22 @@ function autocomplete(value){
     }
   }
   return ""
+}
+
+//not safe but... its your own machine, do whatever you feel like doing.
+function handleExpression(value){
+  try{
+    const out = eval(value.substring(1));
+    if(out !== undefined){
+      return out
+    }
+  }catch(e){}
+  return ""
+}
+
+function addExpression(value){
+  const out = handleExpression(value);
+  if (out !== undefined && out !== ""){
+    computedOutput = `\\A ${value.substring(1)} = ${out} ${computedOutput}`
+  }
 }
