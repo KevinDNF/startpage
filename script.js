@@ -63,7 +63,7 @@ function handleSubmit(){
 function autocomplete(value){
   if (value !== ""){
     for (const website in websites){
-      if (website.startsWith(value)){
+      if (website.startsWith(value.toLowerCase())){
         return website
       }
     }
