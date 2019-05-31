@@ -4,13 +4,14 @@
 const search_engine = "https://www.duckduckgo.com";
 const websites = {
   "facebook" : "https://www.facebook.com",
+  "instagram" : "https://www.instagram.com",
   "youtube" : "https://www.youtube.com",
   "twitter" : "https://www.twitter.com",
   "github" : "https://www.github.com",
   "gmail" : "https://www.gmail.com",
   "protonmail" : "https://www.protonmail.com",
   "portaisociety" : "https://www.portaisociety.com",
-  "kevindnf" : "https://www.kevindnf.com",
+  "kevindnf" : "https://kevindnf.com",
   "drive" : "https://www.drive.google.com",
   "teamdrive" : "https://www.drive.google.com",
   "drive.google" : "https://www.drive.google.com",
@@ -40,6 +41,11 @@ document.addEventListener("click", (e) => {
 document.addEventListener("keydown", (e)=>{
   if (e.key === "Enter"){
     handleSubmit();
+  }else if (e.key === "Tab"){
+    e.preventDefault();
+    if (autoValue !== ""){
+      handleSubmit();
+    }
   }
   input.focus();
 })
