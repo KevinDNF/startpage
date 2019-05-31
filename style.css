@@ -1,0 +1,45 @@
+:root {
+  --autocompleteContent: "";
+}
+
+html, body{
+  width:100%;
+  height:100%;
+}
+body{
+  background-color:#4CB4B8;
+  margin:0;
+  display:flex;
+  justify-content:center;
+}
+
+#searchbox{
+  display:block;
+  margin:auto;
+}
+
+#search{
+  display:block;
+  margin:auto;
+  font-family: arial;
+  font-weight:bold;
+  text-transform:uppercase;
+  font-size:3em;
+  background-color:rgba(0,0,0,0);
+  border:none;
+  color:#F9E389;
+  padding:0;
+}
+#search:focus{
+  outline:none;
+}
+#searchbox:before{
+  z-index:-1;
+  color:#F9E389;
+  opacity:0.3;
+  position:absolute;
+  content:var(--autocompleteContent);
+  font-size:3em;
+  font-family:arial;
+  font-weight:bold;
+}
